@@ -1,4 +1,4 @@
-import express, { application } from 'express';
+import express  from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -9,6 +9,10 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+
+// data import
+import User from './models/User.js';
+import { dataUser } from "./data/index.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -38,4 +42,9 @@ mongoose
     })
     .then(() => {
          app.listen (PORT, ()=> console.log(`Server Port: ${PORT}`));
-}).catch((error)=>console.log(`${error} did not connect`));
+        
+        /*ONLY ADD DATA ONE TIME */
+       // User.insertMany(dataUser);
+        
+})
+.catch((error)=>console.log(`${error} did not connect`));
